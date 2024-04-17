@@ -61,7 +61,7 @@ public class App {
                 visa_passagerare(bokning_namn, bokning_nr);
                 break;
             case 4:
-                beräkna_vinst(priser, index);
+                beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser);
                 break;
             case 5:
                 avsluta();
@@ -130,15 +130,16 @@ public class App {
         return false;
     }
 
-    public static double beräkna_vinst(double[] priser, int index){
+    public static double beräkna_vinst(double[] priser, int index, String[] bokning_namn, int[] bokning_nr, String[][] visa_platser){
         if (priser.length > index) {
             double pris = priser[index];
             index++;
-            return pris+beräkna_vinst(priser, index);
+            return pris+beräkna_vinst(priser, index, );
         }
         else{
             return 0;
         }
+        visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser);
     }
 
     public static void visa_passagerare(String[] bokning_namn, int[] bokning_nr){
