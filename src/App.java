@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class App {
     static Scanner tb = new Scanner(System.in);
+    static final double PRIS_VUXEN = 299.90;
+    static final double PRIS_BARN = 149.90;
     public static void main(String[] args) throws Exception {
-        final double PRIS_VUXEN = 299.90;
-        final double PRIS_BARN = 149.90;
         boolean loop = true;
         int index = 0;
         int[] bokning_nr = new int[20];
@@ -30,11 +30,11 @@ public class App {
         double total_vinst = beräkna_vinst(priser, index);
         while (loop) {
             System.out.println("Hej! Välj en tjänst från listan nedan!");
-            visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, PRIS_VUXEN, PRIS_BARN);
+            visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser);
         }
     }
 
-    public static void visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, double PRIS_VUXEN, double PRIS_BARN){
+    public static void visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser){
         int val = tb.nextInt();
         try {
             val = tb.nextInt();
@@ -52,7 +52,7 @@ public class App {
         }
         switch (val) {
             case 1:
-                boka_plats(bokning_nr, bokning_namn, priser, visa_platser, PRIS_VUXEN, PRIS_BARN);
+                boka_plats(bokning_nr, bokning_namn, priser, visa_platser);
                 break;
             case 2:
                 hitta_bokning(bokning_nr, bokning_namn, visa_platser);
@@ -70,7 +70,7 @@ public class App {
     }
     
     
-    public static void boka_plats(int[] bokning_nr, String[] bokning_namn, double[] priser, String[][] visa_platser, double PRIS_VUXEN, double PRIS_BARN){
+    public static void boka_plats(int[] bokning_nr, String[] bokning_namn, double[] priser, String[][] visa_platser){
         System.out.println("Ange ditt födelsedatum ÅÅÅÅMMDD:");
         int person_nr = tb.nextInt();
         try {
@@ -123,6 +123,7 @@ public class App {
         else if (person_nr<20060502) {
             priser[val] = PRIS_VUXEN;
         }
+        visa_meny(priser, val, bokning_nr, bokning_namn, visa_platser);
     }
 
     public static boolean avsluta(){
