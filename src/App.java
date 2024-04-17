@@ -76,7 +76,7 @@ public class App {
         try {
             person_nr = tb.nextInt();
         } catch (Exception e) {
-            
+            System.out.println("Använd endast siffror.");
         }
         while (person_nr<10000000 || person_nr>=100000000) {
             System.out.println("Ange ditt födelsedatum ÅÅÅÅMMDD:");
