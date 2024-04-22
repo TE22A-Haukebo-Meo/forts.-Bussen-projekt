@@ -40,7 +40,7 @@ public class App {
         System.out.println("3. Visa passagerare");
         System.out.println("4. Beräkna vinst av biljetter.");
         System.out.println("5. Avsluta.");
-        int val = tb.nextInt();
+        int val = 0;
         try {
             val = tb.nextInt();
         } 
@@ -72,7 +72,7 @@ public class App {
     
     public static void boka_plats(int[] bokning_nr, String[] bokning_namn, double[] priser, String[][] visa_platser, boolean loop){
         System.out.println("Ange ditt födelsedatum ÅÅÅÅMMDD:");
-        int person_nr = tb.nextInt();
+        int person_nr = 0;
         try {
             person_nr = tb.nextInt();
         } catch (Exception e) {
@@ -154,7 +154,13 @@ public class App {
         System.out.println("Hitta din bokning via:");
         System.out.println("1. Namn");
         System.out.println("2. Personnummer");
-        int val = tb.nextInt();
+        int val = 0;
+        try {
+            val = tb.nextInt();
+        } 
+        catch (Exception e) {
+            System.out.println("Välj en tjänst med dess siffra.");
+        }
         switch (val) {
             case 1:
                 System.out.println("Ange ditt personnummer:");
