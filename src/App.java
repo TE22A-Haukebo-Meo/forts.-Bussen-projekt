@@ -43,9 +43,12 @@ public class App {
         int val = 0;
         try {
             val = tb.nextInt();
+            tb.nextLine();
         } 
         catch (Exception e) {
             System.out.println("Välj en tjänst med dess siffra.");
+            val = tb.nextInt();
+            tb.nextLine();
         }
         while (val>5 || val==0) {
             System.out.println("Välj en tjänst med dess siffra.");
@@ -75,8 +78,11 @@ public class App {
         int person_nr = 0;
         try {
             person_nr = tb.nextInt();
+            tb.nextLine();
         } catch (Exception e) {
             System.out.println("Använd endast siffror.");
+            person_nr = tb.nextInt();
+            tb.nextLine();
         }
         while (person_nr<10000000 || person_nr>=100000000) {
             System.out.println("Ange ditt födelsedatum ÅÅÅÅMMDD:");
@@ -142,25 +148,31 @@ public class App {
 
     public static void visa_passagerare(String[] bokning_namn, int[] bokning_nr){
         for (int i = 0; i < bokning_nr.length; i++) {
-            if (bokning_nr[i] == 0) {
-                break;
-            }
-            System.out.print(bokning_nr);
-            System.out.print(bokning_namn);
+            System.out.print(bokning_nr[i]);
+            
         }
+        System.out.println("");
+        for (int i = 0; i < bokning_namn.length; i++) {
+            System.out.print(bokning_namn[i]);
+        }
+        System.out.println("");
     }
 
     public static void hitta_bokning(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop){
         System.out.println("Hitta din bokning via:");
-        System.out.println("1. Namn");
-        System.out.println("2. Personnummer");
+        System.out.println("1. Personnummer");
+        System.out.println("2. Namn");
+        System.out.println("Välj en metod med dess nummer.");
         int val = 0;
         try {
             val = tb.nextInt();
-        } 
+            tb.nextLine();
+        }
         catch (Exception e) {
             System.out.println("Välj en tjänst med dess siffra.");
-        }
+            val = tb.nextInt();
+            tb.nextLine();
+        }     
         switch (val) {
             case 1:
                 System.out.println("Ange ditt personnummer:");
@@ -174,7 +186,7 @@ public class App {
                     if (bokning_nr[i] == person_nr) {
                         System.out.println("Du har bokat plats "+i+"!");
                     }
-                    else{
+                    else if (bokning_nr.length == i){
                         System.out.println("Kunde inte hitta bokning.");
                     }
                 }
@@ -185,8 +197,9 @@ public class App {
                 for (int i = 0; i < bokning_namn.length; i++) {
                     if (bokning_namn[i] == namn) {
                         System.out.println("Du har bokat plats "+i+"!");
+                        break;
                     }
-                    else{
+                    else if (bokning_namn.length == i){
                         System.out.println("Kunde inte hitta bokning.");
                     }
                 }
