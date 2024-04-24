@@ -27,14 +27,15 @@ public class App {
                 x++;
             }
         }
-        double total_vinst = beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop);
+        double total_vinst = 0;
+        total_vinst = beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
         while (loop) {
             System.out.println("Hej! Välj en tjänst från listan nedan!");
-            visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, loop);
+            visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, loop, total_vinst);
         }
     }
 
-    public static void visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop){
+    public static void visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop, double total_vinst){
         System.out.println("1. Boka en plats på bussen.");
         System.out.println("2. Hitta/ändra bokning.");
         System.out.println("3. Visa passagerare");
@@ -64,7 +65,7 @@ public class App {
                 visa_passagerare(bokning_namn, bokning_nr);
                 break;
             case 4:
-                beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop);
+                beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
                 break;
             case 5:
                 avsluta(loop);
@@ -135,15 +136,20 @@ public class App {
         loop = false;
     }
 
-    public static double beräkna_vinst(double[] priser, int index, String[] bokning_namn, int[] bokning_nr, String[][] visa_platser, boolean loop){
+    public static double beräkna_vinst(double[] priser, int index, String[] bokning_namn, int[] bokning_nr, String[][] visa_platser, boolean loop, double total_vinst){
         if (priser.length > index) {
             double pris = priser[index];
             index++;
-            return pris+beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop);
+            return pris+beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
         }
         else{
+            skriv_ut_vinst(total_vinst);
             return 0;
         }        
+    }
+
+    public static void skriv_ut_vinst(double total_vinst){
+
     }
 
     public static void visa_passagerare(String[] bokning_namn, int[] bokning_nr){
