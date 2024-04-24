@@ -29,7 +29,7 @@ public class App {
         }
         double total_vinst = 0;
         total_vinst = beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
-        while (loop) {
+        while (loop = true) {
             System.out.println("Hej! Välj en tjänst från listan nedan!");
             visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, loop, total_vinst);
         }
@@ -93,10 +93,20 @@ public class App {
         String namn = tb.nextLine();
         System.out.println("Välj en plats att boka:");
         for (int i = 0; i < 5; i++) {
+            System.out.println();
             for (int j = 0; j < 4; j++) {
-                System.out.println(visa_platser[i][j]);
+                System.out.print("[");
+                if (Integer.parseInt(visa_platser[i][j])<10) {
+                    System.out.print("0"+visa_platser[i][j]);
+                }
+                else{
+                    System.out.print(visa_platser[i][j]);
+                }
+                System.out.print("]");
+                System.out.print(" ");
             }
         }
+        System.out.println();
         int val = 0;
         while (val>20 || val==0) {
             System.out.println("Skriv en siffra mellan 1-20.");
@@ -114,6 +124,7 @@ public class App {
                 tb.nextLine();
             }
         }
+        System.out.println("Du har bokat platsen "+val+"!");
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 4; j++) {
                 if (String.valueOf(val) == visa_platser[i][j]) {
@@ -201,7 +212,7 @@ public class App {
                 System.out.println("Ange ditt namn:");
                 String namn = tb.nextLine();
                 for (int i = 0; i < bokning_namn.length; i++) {
-                    if (bokning_namn[i] == namn) {
+                    if (bokning_namn[i].equalsIgnoreCase(namn)) {
                         System.out.println("Du har bokat plats "+i+"!");
                         break;
                     }
