@@ -160,7 +160,7 @@ public class App {
     }
 
     public static void skriv_ut_vinst(double total_vinst){
-
+        System.out.println(total_vinst);
     }
 
     public static void visa_passagerare(String[] bokning_namn, int[] bokning_nr){
