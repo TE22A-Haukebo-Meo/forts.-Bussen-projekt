@@ -146,16 +146,14 @@ public class App {
     public static void avsluta(boolean loop){
         loop = false;
     }
-
+    
     public static double beräkna_vinst(double[] priser, int index, String[] bokning_namn, int[] bokning_nr, String[][] visa_platser, boolean loop, double total_vinst){
-        if (priser.length > index) {
-            double pris = priser[index];
-            index++;
-            return pris+beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
-        }
-        else{
+        if (index == 0) {
             skriv_ut_vinst(total_vinst);
             return 0;
+        }
+        else{
+            return priser[index]+beräkna_vinst(priser, index-1, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
         }        
     }
 
