@@ -6,7 +6,7 @@ public class App {
     static final double PRIS_BARN = 149.90;
     public static void main(String[] args) throws Exception {
         boolean loop = true;
-        int index = 0;
+        int index = 20;
         int[] bokning_nr = new int[20];
         for (int i = 0; i < bokning_nr.length; i++) {
             bokning_nr[i] = 0;
@@ -28,14 +28,13 @@ public class App {
             }
         }
         double total_vinst = 0;
-        total_vinst = beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
-        while (loop = true) {
+        while (loop) {
             System.out.println("Hej! Välj en tjänst från listan nedan!");
-            visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, loop, total_vinst);
+            loop = visa_meny(priser, index, bokning_nr, bokning_namn, visa_platser, loop, total_vinst);
         }
     }
 
-    public static void visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop, double total_vinst){
+    public static boolean visa_meny(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop, double total_vinst){
         System.out.println("1. Boka en plats på bussen.");
         System.out.println("2. Hitta/ändra bokning.");
         System.out.println("3. Visa passagerare");
@@ -57,19 +56,22 @@ public class App {
         switch (val) {
             case 1:
                 boka_plats(bokning_nr, bokning_namn, priser, visa_platser, loop);
-                break;
+                return true;
             case 2:
                 hitta_bokning(priser, index,bokning_nr, bokning_namn, visa_platser, loop);
-                break;
+                return true;
+                
             case 3:
                 visa_passagerare(bokning_namn, bokning_nr);
-                break;
+                return true;
+                
             case 4:
-                beräkna_vinst(priser, index, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
-                break;
+                System.out.println(beräkna_vinst(priser, index, total_vinst));
+                return true;
             case 5:
-                avsluta(loop);
-                break;
+                return false;
+            default:
+                return true;
         }
     }
     
@@ -133,32 +135,27 @@ public class App {
                 }
             }
         }
-        bokning_namn[val] = namn;
-        bokning_nr[val] = person_nr;
+        bokning_namn[val-1] = namn;
+        bokning_nr[val-1] = person_nr;
         if (person_nr>20060502) {
-            priser[val] = PRIS_BARN;
+            priser[val-1] = PRIS_BARN;
         }
         else if (person_nr<20060502) {
-            priser[val] = PRIS_VUXEN;
+            priser[val-1] = PRIS_VUXEN;
         }
-    }
-
-    public static void avsluta(boolean loop){
-        loop = false;
+        for (int i = 0; i < priser.length; i++) {
+            System.out.println(priser[i]);
+        }
     }
     
-    public static double beräkna_vinst(double[] priser, int index, String[] bokning_namn, int[] bokning_nr, String[][] visa_platser, boolean loop, double total_vinst){
+    public static double beräkna_vinst(double[] priser, int index,  double total_vinst){
         if (index == 0) {
-            skriv_ut_vinst(total_vinst);
-            return 0;
+            return total_vinst;
         }
         else{
-            return priser[index]+beräkna_vinst(priser, index-1, bokning_namn, bokning_nr, visa_platser, loop, total_vinst);
+            total_vinst += priser[index-1];
+            return beräkna_vinst(priser, index-1, total_vinst);
         }        
-    }
-
-    public static void skriv_ut_vinst(double total_vinst){
-        System.out.println(total_vinst);
     }
 
     public static void visa_passagerare(String[] bokning_namn, int[] bokning_nr){
