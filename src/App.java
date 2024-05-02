@@ -284,6 +284,8 @@ public class App {
                 tb.nextLine();
             }
         }     
+        boolean bokning = false;
+        int ändra_bokning = 0;
         switch (val) {
             case 1:
                 System.out.println("Ange ditt personnummer:");
@@ -300,9 +302,13 @@ public class App {
                         tb.nextLine();
                     }
                 }
+                tb.nextLine();
                 for (int i = 0; i < bokning_nr.length; i++) {
                     if (bokning_nr[i] == person_nr) {
                         System.out.println("Du har bokat plats "+i+1+"!");
+                        bokning = true;
+                        ändra_bokning = i;
+                        break;
                     }
                     else if (i == bokning_nr.length-1){
                         System.out.println("Kunde inte hitta bokning.");
@@ -310,17 +316,39 @@ public class App {
                 }
                 break;
             case 2:
+                tb.nextLine();
                 System.out.println("Ange ditt namn:");
                 String namn = tb.nextLine();
                 for (int i = 0; i < bokning_namn.length; i++) {
                     if (bokning_namn[i].equalsIgnoreCase(namn)) {
                         System.out.println("Du har bokat plats "+i+1+"!");
+                        bokning = true;
+                        ändra_bokning = i;
                         break;
                     }
                     else if (bokning_namn.length-1 == i){
                         System.out.println("Kunde inte hitta bokning.");
                     }
                 }
+                break;
+        }
+        if (bokning) {
+            System.out.println("Vill du ta bort bokningen?");
+            String svar = tb.nextLine();
+            while (true) {
+                if (svar.equalsIgnoreCase("ja")) {
+                    bokning_namn[ändra_bokning] = "0";
+                    bokning_nr[ändra_bokning] = 0;
+                    break;
+                }
+                else if (svar.equalsIgnoreCase("nej")) {
+                    break;
+                }
+                else{
+                    System.out.println("Skriv ja eller nej.");
+                    svar = tb.nextLine();
+                }
+            }
         }
         //LÄGG TILL SÅ DE FAKTISKT KAN ÄNDRA BOKNINGEN 
     }
