@@ -57,7 +57,7 @@ public class App {
                 boka_plats(bokning_nr, bokning_namn, priser, visa_platser, loop);
                 return true;
             case 2:
-                hitta_bokning(priser, index,bokning_nr, bokning_namn, visa_platser, loop);
+                hitta_bokning(priser, bokning_nr, bokning_namn, visa_platser);
                 return true;
             case 3:
                 visa_passagerare(bokning_namn, bokning_nr);
@@ -162,9 +162,110 @@ public class App {
             System.out.print(bokning_namn[i]);
             System.out.print(" ");
         }
+        int[] bokning_nr_sorterad = new int[20];
+        for (int i = 0; i < bokning_nr_sorterad.length; i++) {
+            bokning_nr_sorterad[i] = bokning_nr[i];
+        }
+        String[] bokning_namn_sorterad = new String[20];
+        for (int i = 0; i < bokning_namn_sorterad.length; i++) {
+            bokning_namn_sorterad[i] = bokning_namn[i];
+        }
+        boolean byt = true;
+        for (int i = 0; i < bokning_nr_sorterad.length-1; i++) {
+            byt = false;
+            for (int j = 0; j < bokning_nr_sorterad.length-1; j++) {
+                if (bokning_nr_sorterad[j]>bokning_nr_sorterad[j+1]) {
+                    int sort = bokning_nr_sorterad[j];
+                    bokning_nr_sorterad[j] = bokning_nr_sorterad[j+1];
+                    bokning_nr_sorterad[j+1] = sort;
+                    String sort2 = bokning_namn_sorterad[j];
+                    bokning_namn_sorterad[j] = bokning_namn_sorterad[j+1];
+                    bokning_namn_sorterad[j+1] = sort2;
+                    byt = true;
+                }
+            }
+            if (byt == false) {
+                break;
+            }
+        }
+        System.out.println("");
+        for (int i = 0; i < bokning_nr_sorterad.length; i++) {
+            System.out.print(bokning_nr_sorterad[i]);
+            System.out.print(" ");
+        }
+        System.out.println("");
+        for (int i = 0; i < bokning_namn_sorterad.length; i++) {
+            System.out.print(bokning_namn_sorterad[i]);
+            System.out.print(" ");
+        }
+        System.out.println("");
+        int[] bokning_nr_vuxen = new int[20];
+        int[] bokning_nr_barn = new int[20];
+        String[] bokning_namn_vuxen = new String[20];
+        for (int i = 0; i < bokning_namn_vuxen.length; i++) {
+            bokning_namn_vuxen[i] = "0";
+        }
+        String[] bokning_namn_barn = new String[20];
+        for (int i = 0; i < bokning_namn_barn.length; i++) {
+            bokning_namn_barn[i] = "0";
+        }
+        for (int i = 0; i < bokning_nr_sorterad.length; i++) {
+            if (bokning_nr_sorterad[i]>20060502) {
+                bokning_nr_barn[i] = bokning_nr_sorterad[i];
+                bokning_namn_barn[i] = bokning_namn_sorterad[i];
+            }
+            else if (bokning_nr_sorterad[i]<20060502) {
+                bokning_nr_vuxen[i] = bokning_nr_sorterad[i];
+                bokning_namn_vuxen[i] = bokning_namn_sorterad[i];
+            }
+        }
+        System.out.println("Barnpassagerare:");
+        for (int i = 0; i < bokning_nr_barn.length; i++) {
+            if (bokning_nr_barn[i] == 0) {
+                System.out.print("");
+            }
+            else{
+                System.out.print(bokning_nr_barn[i]);
+                System.out.print(" ");
+            }
+        }
+        System.out.println("");
+        for (int i = 0; i < bokning_namn_barn.length; i++) {
+            if (bokning_namn_barn[i].equals("0")) {
+                System.out.print("");
+            }
+            else{
+                System.out.print(bokning_namn_barn[i]);
+                System.out.print(" ");
+            }
+        }
+        System.out.println("");
+        System.out.println("Vuxenpassagerare:");
+        for (int i = 0; i < bokning_nr_vuxen.length; i++) {
+            if (bokning_nr_vuxen[i] == 0) {
+                System.out.print("");
+            }
+            else{
+                System.out.print(bokning_nr_vuxen[i]);
+                System.out.print(" ");
+            }
+        }
+        System.out.println("");
+        for (int i = 0; i < bokning_namn_vuxen.length; i++) {
+            if (bokning_namn_vuxen[i].equals("0")) {
+                System.out.print("");
+            }
+            else{
+                System.out.print(bokning_namn_vuxen[i]);
+                System.out.print(" ");
+            }
+        }
+        System.out.println("");
+        //LÄGG TILL SÅ ATT DEN SORTERAR UTIFRÅN ÅLDER OCH SKRIVER UT VILKA SOM ÄR ÖVER OCH UNDER 18 ÅR!!
+        
     }
 
-    public static void hitta_bokning(double[] priser, int index, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser, boolean loop){
+    public static void hitta_bokning(double[] priser, int[] bokning_nr, String[] bokning_namn, String[][] visa_platser){
         System.out.println("Hitta din bokning via:");
         System.out.println("1. Personnummer");
         System.out.println("2. Namn");
@@ -221,6 +322,7 @@ public class App {
                     }
                 }
         }
+        //LÄGG TILL SÅ DE FAKTISKT KAN ÄNDRA BOKNINGEN 
     }
         
 }
